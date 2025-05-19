@@ -1,11 +1,11 @@
+from config.logger import get_logger
+
+logger = get_logger(__name__)
+
 def main():
-    print("App is running but does nothing yet.")
-    # Boucle infinie simple pour garder l'app "active"
-    try:
-        while True:
-            pass
-    except KeyboardInterrupt:
-        print("\nApp stopped by user.")
+    logger.info("Started the app")
+    logger.info("Ended the app")
+    
 
 if __name__ == '__main__':
     main()
