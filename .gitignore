@@ -175,3 +175,6 @@ cython_debug/
 
 # For Mac devs
 .DS_Store
+
+# For VSCode devs
+.vscode/
