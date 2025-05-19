@@ -8,9 +8,13 @@ class Resume():
             raise ValueError("Missing required argument: 'name' for Resume")
         if path is None:
             raise ValueError("Missing required argument: 'path' for Resume")
-        self.id = str(uuid4())
+        self.__id = str(uuid4())
         self.name = name
         self.path = path
+
+    @property
+    def id(self):
+        return self.__id
 
     def attach_application(self, application_id: int):
         self.application_id = application_id
