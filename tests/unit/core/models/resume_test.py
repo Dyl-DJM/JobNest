@@ -25,9 +25,22 @@ def test_should_throw_ValueError():
     assert str(missing_path_exception.value) == "Missing required argument: 'path' for Resume"
 
 
+def test_should_throw_TypeError():
+    # Wrong type for name argument
+    with pytest.raises(TypeError) as wrong_type_for_name_exception:
+        resume = Resume(resume_path, resume_path)
+    assert str(wrong_type_for_name_exception.value) == "Wrong type for argument: 'name' fro Resume (should be a string object)"
+
+    # Wrong type for path argument
+    with pytest.raises(TypeError) as wrong_name_for_path_exception:
+        resume = Resume(resume_name, "aStringAsThePath")
+    assert str(wrong_name_for_path_exception.value) == "Wrong type for argument: 'path' fro Resume (should be a Path object)"
+
+
 def test_should_retrieve_resume_id():
     resume = Resume(resume_name, resume_path)
     assert type(resume.id) == str
+
 
 def test_should_not_update_resume_id():
     resume = Resume(resume_name, resume_path)

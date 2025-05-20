@@ -8,6 +8,10 @@ class Resume():
             raise ValueError("Missing required argument: 'name' for Resume")
         if path is None:
             raise ValueError("Missing required argument: 'path' for Resume")
+        if not isinstance(name, str):
+            raise TypeError("Wrong type for argument: 'name' fro Resume (should be a string object)")
+        if not isinstance(path, Path):
+            raise TypeError("Wrong type for argument: 'path' fro Resume (should be a Path object)")
         self.__id = str(uuid4())
         self.name = name
         self.path = path
