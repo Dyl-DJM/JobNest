@@ -4,6 +4,7 @@ logger = get_logger(__name__)
 
 def main():
     logger.info("Started the app")
+
     logger.info("Ended the app")
 
 
