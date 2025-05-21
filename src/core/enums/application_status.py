@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ApplicationStatusEnum(Enum):
+class ApplicationStatus(Enum):
     UNCOMPLETE = 0
     WAITING = 1
     REFUSAL = 2
