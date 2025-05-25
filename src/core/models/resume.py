@@ -4,9 +4,9 @@ from uuid import uuid4
 
 class Resume():
     def __init__(self, name: str, path: Path):
-        if name is None:
+        if not name:
             raise ValueError("Missing required argument: 'name' for Resume")
-        if path is None:
+        if not path:
             raise ValueError("Missing required argument: 'path' for Resume")
         if not isinstance(name, str):
             raise TypeError("Wrong type for argument: 'name' fro Resume (should be a string object)")
