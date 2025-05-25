@@ -1,6 +1,6 @@
 import pytest
 
-from core.utils import Singleton, SingletonException
+from utils.patterns import Singleton, SingletonException
 
 class SingletonTest(Singleton):
     def __init__(self, a: int, b: int):

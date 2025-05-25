@@ -45,6 +45,7 @@ class TestSkillTag:
         Check that a skill tag can be created sucessfully.
         """
         assert skill_tag
+        assert SkillTag("C++", SkillType.TECHNICAL, ImportanceLevel.PIORITY)
 
     def test_raise_exception_at_skill_tag_creation(self):
         #
