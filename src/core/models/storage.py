@@ -1,7 +1,7 @@
 from core.models.resume import Resume
 from core.models.application import Application
 from core.models.letter import Letter
-from core.utils import Singleton
+from utils import Singleton
 
 class Storage(Singleton):
     def __init__(self):

@@ -46,12 +46,23 @@ class TestSkillTag:
         """
         assert skill_tag
 
+    def test_raise_exception_at_skill_tag_creation(self):
+        #
+        pass
+
+
     def test_property_reading(self, skill_tag: SkillTag, skill_props):
         """
         Check that all skill tag properties are readable.
         """
         for prop in skill_props:
             getattr(skill_tag, prop)
+
+    def test_property_name_setting(self, skill_tag: SkillTag):
+        # Valid setting
+        skill_tag.name = "Angular"
+        assert skill_tag.name == "Angular"
+
 
 
 
