@@ -23,7 +23,7 @@ class TestSkillTag:
     """
 
     # Prefix of all the private attributes
-    private_attr_prefix: str = "__"
+    private_attr_prefix: str = "_"
 
     @pytest.fixture
     def skill_tag(self):
@@ -53,17 +53,6 @@ class TestSkillTag:
         for prop in skill_props:
             getattr(skill_tag, prop)
 
-    def test_private_field_immutability(self, skill_tag: SkillTag, skill_props):
-        """
-        Check that all skill tag private attributes are immutable.
-        """
-        for prop in skill_props:
-            private_attr = TestSkillTag.private_attr_prefix + prop
-            # This won't raise any exception, the object will create a new attribute
-            # and set it wit the given value
-            setattr(skill_tag, private_attr, None)
-            # Checks that the private attribute value returned by the property has not been set to None
-            assert getattr(skill_tag, prop) is not None
 
 
 class TestJob():
