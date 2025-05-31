@@ -31,6 +31,11 @@ class SkillTag():
     def type(self):
         return self._type
 
+    @type.setter
+    def type(self, skill_type: SkillType):
+        validate_required_arg_type(skill_type, "skill_type", SkillType)
+        self._type = skill_type
+
     @property
     def level(self):
         return self._level

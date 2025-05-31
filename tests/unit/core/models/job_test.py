@@ -74,6 +74,9 @@ class TestSkillTag:
             getattr(skill_tag, prop)
 
     def test_property_name_setting(self, skill_tag: SkillTag):
+        """
+        Check that setting the name works correctly
+        """
         # Valid setting
         skill_tag.name = "Angular"
         assert skill_tag.name == "Angular"
@@ -88,7 +91,23 @@ class TestSkillTag:
             skill_tag.name = 12
         assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_name", int, str)
 
+    def test_property_type_setting(self, skill_tag: SkillTag):
+        """
+        Check that setting the type works correctly
+        """
+        # Valid setting
+        skill_tag.type = SkillType.SOFT
+        assert skill_tag.type == SkillType.SOFT
 
+        # Mising string value
+        with pytest.raises(ValueError) as missing_arg_exception:
+            skill_tag.type = None
+        assert str(missing_arg_exception.value) == get_missing_error_message("skill_type")
+
+        # Wrong type
+        with pytest.raises(TypeError) as wrong_type_exception:
+            skill_tag.type = 12
+        assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_type", int, SkillType)
 
 
 class TestJob():
