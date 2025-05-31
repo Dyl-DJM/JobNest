@@ -1,5 +1,5 @@
 from core.enums import SkillType, ImportanceLevel
-from utils import validate_required_arg_type, validate_arg_type
+from utils import validate_required_arg_type, validate_arg_type, validate_int_in_range
 
 class SkillTag():
     def __init__(self, skill_name: str, skill_type: SkillType,
@@ -12,11 +12,11 @@ class SkillTag():
 
     @staticmethod
     def _validate_construction(skill_name: str, skill_type: SkillType,
-                 skill_level: ImportanceLevel, experience_years=None):
+                 skill_level: ImportanceLevel, experience_years: int=None):
         validate_required_arg_type(skill_name, 'skill_name', str)
         validate_required_arg_type(skill_type, 'skill_type', SkillType)
         validate_required_arg_type(skill_level, 'skill_level', ImportanceLevel)
-        validate_arg_type(experience_years, 'experience_years', int)
+        SkillTag._validate_experience_years(experience_years)
 
     @property
     def name(self):
@@ -43,11 +43,23 @@ class SkillTag():
     @level.setter
     def level(self, skill_level:ImportanceLevel):
         validate_required_arg_type(skill_level, "skill_level", ImportanceLevel)
-        self._level= skill_level
+        self._level = skill_level
+
+    @staticmethod
+    def _validate_experience_years(experience_years: int):
+        if experience_years is None:
+            return
+        validate_arg_type(experience_years, "experience_years", int)
+        validate_int_in_range(experience_years, (0, 20), "experience_years")
 
     @property
     def experience_years(self):
         return self._experience_years
+
+    @experience_years.setter
+    def experience_years(self, years: int):
+        SkillTag._validate_experience_years(years)
+        self._experience_years = years
 
 
 class Job():

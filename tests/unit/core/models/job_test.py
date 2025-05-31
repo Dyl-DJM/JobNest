@@ -3,7 +3,7 @@ import inspect
 
 from core.models.job import Job, SkillTag
 from core.enums import ImportanceLevel, SkillType
-from utils import get_missing_error_message, get_wrong_type_error_message
+from utils import get_missing_error_message, get_wrong_type_error_message, get_not_in_range_error_message
 
 
 class TestSkillTag:
@@ -66,6 +66,12 @@ class TestSkillTag:
             SkillTag(ImportanceLevel.LOW, SkillType.TECHNICAL, "Project Management", 2)
         assert str(wrong_type_error.value) == get_wrong_type_error_message("skill_name", ImportanceLevel, str)
 
+        # Years value can't be negative
+        with pytest.raises(ValueError) as not_in_range_exception:
+            SkillTag( "Project Management", SkillType.TECHNICAL, ImportanceLevel.MEDIUM, -10)
+        assert str(not_in_range_exception.value) == get_not_in_range_error_message("experience_years", -10, (0, 20))
+
+
     def test_property_reading(self, skill_tag: SkillTag, skill_props):
         """
         Check that all skill tag properties are readable.
@@ -126,6 +132,34 @@ class TestSkillTag:
             with pytest.raises(TypeError) as wrong_type_exception:
                 skill_tag.level = 12
             assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_level", int, ImportanceLevel)
+
+    def test_property_experience_setting(self, skill_tag: SkillTag):
+            """
+            Check that setting the experience years works correctly
+            """
+            # Valid setting
+            skill_tag.experience_years = 2
+            assert skill_tag.experience_years == 2
+
+            # Valid setting (None is accepted)
+            skill_tag.experience_years = None
+            assert skill_tag.experience_years == None
+
+            # Wrong type
+            with pytest.raises(TypeError) as wrong_type_exception:
+                skill_tag.experience_years = "12"
+            assert str(wrong_type_exception.value) == get_wrong_type_error_message("experience_years", str, int)
+
+            # Years value can't be negative
+            with pytest.raises(ValueError) as not_in_range_exception:
+                skill_tag.experience_years = -1
+            assert str(not_in_range_exception.value) == get_not_in_range_error_message("experience_years", -1, (0, 20))
+
+             # Value can't be higher than 20 years
+            with pytest.raises(ValueError) as not_in_range_exception:
+                skill_tag.experience_years = -1
+            assert str(not_in_range_exception.value) == get_not_in_range_error_message("experience_years", -1, (0, 20))
+
 
 
 class TestJob():
