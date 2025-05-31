@@ -53,6 +53,9 @@ class TestSkillTag:
         assert new_tag.experience_years == None
 
     def test_raise_exception_at_skill_tag_creation(self):
+        """
+        Ensure exceptions are raised for invalid instantiation.
+        """
         # None value for required argument
         with pytest.raises(ValueError) as missing_arg_exception:
             SkillTag( "Project Management", SkillType.TECHNICAL, None)
@@ -62,7 +65,6 @@ class TestSkillTag:
         with pytest.raises(TypeError) as wrong_type_error:
             SkillTag(ImportanceLevel.LOW, SkillType.TECHNICAL, "Project Management", 2)
         assert str(wrong_type_error.value) == get_wrong_type_error_message("skill_name", ImportanceLevel, str)
-
 
     def test_property_reading(self, skill_tag: SkillTag, skill_props):
         """
@@ -75,6 +77,16 @@ class TestSkillTag:
         # Valid setting
         skill_tag.name = "Angular"
         assert skill_tag.name == "Angular"
+
+        # Mising string value
+        with pytest.raises(ValueError) as missing_arg_exception:
+            skill_tag.name = None
+        assert str(missing_arg_exception.value) == get_missing_error_message("skill_name")
+
+        # Wrong type
+        with pytest.raises(TypeError) as wrong_type_exception:
+            skill_tag.name = 12
+        assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_name", int, str)
 
 
 
