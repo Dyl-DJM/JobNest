@@ -99,7 +99,7 @@ class TestSkillTag:
         skill_tag.type = SkillType.SOFT
         assert skill_tag.type == SkillType.SOFT
 
-        # Mising string value
+        # Mising value
         with pytest.raises(ValueError) as missing_arg_exception:
             skill_tag.type = None
         assert str(missing_arg_exception.value) == get_missing_error_message("skill_type")
@@ -108,6 +108,24 @@ class TestSkillTag:
         with pytest.raises(TypeError) as wrong_type_exception:
             skill_tag.type = 12
         assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_type", int, SkillType)
+
+    def test_property_level_setting(self, skill_tag: SkillTag):
+            """
+            Check that setting the level works correctly
+            """
+            # Valid setting
+            skill_tag.level = ImportanceLevel.PIORITY
+            assert skill_tag.level ==  ImportanceLevel.PIORITY
+
+            # Mising value
+            with pytest.raises(ValueError) as missing_arg_exception:
+                skill_tag.level = None
+            assert str(missing_arg_exception.value) == get_missing_error_message("skill_level")
+
+            # Wrong type
+            with pytest.raises(TypeError) as wrong_type_exception:
+                skill_tag.level = 12
+            assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_level", int, ImportanceLevel)
 
 
 class TestJob():

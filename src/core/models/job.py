@@ -40,6 +40,11 @@ class SkillTag():
     def level(self):
         return self._level
 
+    @level.setter
+    def level(self, skill_level:ImportanceLevel):
+        validate_required_arg_type(skill_level, "skill_level", ImportanceLevel)
+        self._level= skill_level
+
     @property
     def experience_years(self):
         return self._experience_years
