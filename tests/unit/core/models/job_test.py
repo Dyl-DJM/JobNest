@@ -3,6 +3,8 @@ import inspect
 
 from core.models.job import Job, SkillTag
 from core.enums import ImportanceLevel, SkillType
+from utils import get_missing_error_message, get_wrong_type_error_message
+
 
 class TestSkillTag:
     """
@@ -44,12 +46,22 @@ class TestSkillTag:
         """
         Check that a skill tag can be created sucessfully.
         """
-        assert skill_tag
-        assert SkillTag("C++", SkillType.TECHNICAL, ImportanceLevel.PIORITY)
+        assert skill_tag # Creation with experience_years argument
+        # Creation without experience_years argument
+        new_tag = SkillTag("C++", SkillType.TECHNICAL, ImportanceLevel.PIORITY)
+        assert new_tag
+        assert new_tag.experience_years == None
 
     def test_raise_exception_at_skill_tag_creation(self):
-        #
-        pass
+        # None value for required argument
+        with pytest.raises(ValueError) as missing_arg_exception:
+            SkillTag( "Project Management", SkillType.TECHNICAL, None)
+        assert str(missing_arg_exception.value) == get_missing_error_message("skill_level")
+
+        # Bad arguments order
+        with pytest.raises(TypeError) as wrong_type_error:
+            SkillTag(ImportanceLevel.LOW, SkillType.TECHNICAL, "Project Management", 2)
+        assert str(wrong_type_error.value) == get_wrong_type_error_message("skill_name", ImportanceLevel, str)
 
 
     def test_property_reading(self, skill_tag: SkillTag, skill_props):

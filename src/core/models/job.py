@@ -3,7 +3,7 @@ from utils import validate_required_arg_type, validate_arg_type
 
 class SkillTag():
     def __init__(self, skill_name: str, skill_type: SkillType,
-                 skill_level: ImportanceLevel, experience_years=None):
+                 skill_level: ImportanceLevel, experience_years:int=None):
         SkillTag._validate_construction(skill_name, skill_type, skill_level, experience_years)
         self._name = skill_name
         self._type = skill_type
