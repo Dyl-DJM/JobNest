@@ -7,8 +7,7 @@ from utils import get_missing_error_message, get_wrong_type_error_message, get_n
 
 
 class TestSkillTag:
-    """
-    Unit tests for the SkillTag class to ensure its correct behavior and data encapsulation.
+    """Unit tests for the SkillTag class to ensure its correct behavior and data encapsulation.
 
     Tests:
     - Object creation with expected arguments.

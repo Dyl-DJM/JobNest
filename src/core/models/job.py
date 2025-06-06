@@ -2,6 +2,18 @@ from core.enums import SkillType, ImportanceLevel
 from utils import validate_required_arg_type, validate_arg_type, validate_int_in_range
 
 class SkillTag():
+    """Represent a skill tag that can be used to describe a skill needed by a job offer.
+
+    Warning:
+        Each private attribute should match its corresponding property name.
+
+    Attributes:
+        name (str): skill name/title
+        type (SkillType): indication of the skill nature
+        level (ImportanceLevel): indication of the skill importance
+        experience_years (int): Number of years of experience with the skill
+                                (0 ≤ n ≤ 20) (default None)
+    """
     def __init__(self, skill_name: str, skill_type: SkillType,
                  skill_level: ImportanceLevel, experience_years:int=None):
         SkillTag._validate_construction(skill_name, skill_type, skill_level, experience_years)
