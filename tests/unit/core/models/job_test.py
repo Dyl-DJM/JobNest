@@ -28,23 +28,17 @@ class TestSkillTag:
 
     @pytest.fixture
     def skill_tag(self):
-        """
-        Fixture that returns a default SkillTag instance.
-        """
+        """Fixture that returns a default SkillTag instance."""
         return SkillTag("Python", SkillType.TECHNICAL, ImportanceLevel.HIGH, 2)
 
     @pytest.fixture
     def skill_props(self, skill_tag: SkillTag):
-        """
-        Fixture that returns a list of all @property attributes of the SkillTag
-        object returned by the skill_tag fixture.
-        """
+        """Fixture that returns a list of all @property attributes of the SkillTag
+        object returned by the skill_tag fixture."""
         return [name for name, value in inspect.getmembers(skill_tag.__class__, lambda v: isinstance(v, property))]
 
     def test_create_skill_tag(self, skill_tag):
-        """
-        Check that a skill tag can be created sucessfully.
-        """
+        """Check that a skill tag can be created sucessfully."""
         assert skill_tag # Creation with experience_years argument
         # Creation without experience_years argument
         new_tag = SkillTag("C++", SkillType.TECHNICAL, ImportanceLevel.PIORITY)
@@ -52,9 +46,7 @@ class TestSkillTag:
         assert new_tag.experience_years == None
 
     def test_raise_exception_at_skill_tag_creation(self):
-        """
-        Ensure exceptions are raised for invalid instantiation.
-        """
+        """Ensure exceptions are raised for invalid instantiation."""
         # None value for required argument
         with pytest.raises(ValueError) as missing_arg_exception:
             SkillTag( "Project Management", SkillType.TECHNICAL, None)
@@ -72,16 +64,12 @@ class TestSkillTag:
 
 
     def test_property_reading(self, skill_tag: SkillTag, skill_props):
-        """
-        Check that all skill tag properties are readable.
-        """
+        """Check that all skill tag properties are readable."""
         for prop in skill_props:
             getattr(skill_tag, prop)
 
     def test_property_name_setting(self, skill_tag: SkillTag):
-        """
-        Check that setting the name works correctly
-        """
+        """Check that setting the name works correctly."""
         # Valid setting
         skill_tag.name = "Angular"
         assert skill_tag.name == "Angular"
@@ -97,9 +85,7 @@ class TestSkillTag:
         assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_name", int, str)
 
     def test_property_type_setting(self, skill_tag: SkillTag):
-        """
-        Check that setting the type works correctly
-        """
+        """Check that setting the type works correctly."""
         # Valid setting
         skill_tag.type = SkillType.SOFT
         assert skill_tag.type == SkillType.SOFT
@@ -115,9 +101,7 @@ class TestSkillTag:
         assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_type", int, SkillType)
 
     def test_property_level_setting(self, skill_tag: SkillTag):
-            """
-            Check that setting the level works correctly
-            """
+            """Check that setting the level works correctly."""
             # Valid setting
             skill_tag.level = ImportanceLevel.PIORITY
             assert skill_tag.level ==  ImportanceLevel.PIORITY
@@ -133,9 +117,7 @@ class TestSkillTag:
             assert str(wrong_type_exception.value) == get_wrong_type_error_message("skill_level", int, ImportanceLevel)
 
     def test_property_experience_setting(self, skill_tag: SkillTag):
-            """
-            Check that setting the experience years works correctly
-            """
+            """Check that setting the experience years works correctly."""
             # Valid setting
             skill_tag.experience_years = 2
             assert skill_tag.experience_years == 2
